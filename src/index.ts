@@ -84,6 +84,13 @@ const prepare = async () => {
   core.info("Installing slither");
   await exec.exec("sudo python3 setup.py install", undefined, { cwd: `slither-${slitherVersion}` });
 
+  core.info("Installing solc-select");
+  await exec.exec("pip3 install solc-select");
+
+  core.info("solc-select version");
+  await exec.exec("solc-select install 0.8.12");
+  await exec.exec("solc-select use 0.8.12");
+
 
   if (runNpmInstall) {
     core.info("Installing dependencies");
@@ -113,7 +120,7 @@ const runSlither = async (): Promise<string> => {
     };
     options.cwd = projectPath;
 
-    exec.exec("slither --json - . " + slitherParams, undefined, options).then(() => resolve(output)).catch(() => resolve(output));
+    exec.exec("slither --json - ./contracts --solc-remaps @openzeppelin=node_modules/@openzeppelin " + slitherParams, undefined, options).then(() => resolve(output)).catch(() => resolve(output));
   })
 }
 
