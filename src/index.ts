@@ -1,7 +1,7 @@
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 
-const slitherVersion = core.getInput("slither-version") || "0.8.1";
+const slitherVersion = core.getInput("slither-version") || "0.8.2";
 const runNpmInstall = core.getInput("run-npm-install") === "true";
 const failOnHighResults = parseInt(core.getInput("high-threshold")) || 1;
 const failOnMediumResults = parseInt(core.getInput("medium-threshold")) || 1;
@@ -9,7 +9,7 @@ const failOnLowResults = parseInt(core.getInput("low-threshold")) || 1;
 const failOnInformativeResults = parseInt(core.getInput("informative-threshold")) || 10;
 const failOnOptimizationResults = parseInt(core.getInput("optimization-threshold")) || 1;
 const slitherParams = core.getInput("slither-params") || "";
-const projectPath = core.getInput("projectPath") || ".";
+const projectPath = core.getInput("projectPath") || "./contracts";
 
 type Severity = "High" | "Medium" | "Low" | "Informational" | "Optimization";
 
